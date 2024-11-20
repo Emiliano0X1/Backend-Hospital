@@ -22,4 +22,6 @@ public class UsuarioController {
     public List<Usuario> listaUsuarios(){
         return usuarioService.getUsuario();
     }
+
+
 }
