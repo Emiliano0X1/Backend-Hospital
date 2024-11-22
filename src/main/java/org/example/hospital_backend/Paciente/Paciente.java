@@ -2,6 +2,7 @@ package org.example.hospital_backend.Paciente;
 
 import jakarta.persistence.*;
 import org.example.hospital_backend.Cita.Cita;
+import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cita> citas;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroDeEmergencia> registroDeEmergencias;
 
     public Paciente() {}
 
@@ -68,5 +72,22 @@ public class Paciente {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    public List<Cita> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<Cita> citas) {
+        this.citas = citas;
+    }
+
+    public List<RegistroDeEmergencia> getRegistroDeEmergencias() {
+        return registroDeEmergencias;
+    }
+
+    public void setRegistroDeEmergencias(List<RegistroDeEmergencia> registroDeEmergencias) {
+        this.registroDeEmergencias = registroDeEmergencias;
     }
 }
