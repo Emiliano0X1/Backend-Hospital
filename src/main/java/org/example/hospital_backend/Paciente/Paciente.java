@@ -1,19 +1,25 @@
 package org.example.hospital_backend.Paciente;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.example.hospital_backend.Cita.Cita;
+
+import java.util.List;
 
 @Entity
 @Table
 public class Paciente {
 
     @Id
+    @SequenceGenerator(name = "paciente_sequence",sequenceName = "paciente_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paciente_sequence")
     private long id;
     private String name;
     private String razonDeVisita;
     private String telefono;
     private String expediente;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cita> citas;
 
     public Paciente() {}
 
