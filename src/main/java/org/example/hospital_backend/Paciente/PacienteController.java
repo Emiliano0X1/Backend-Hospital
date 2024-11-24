@@ -34,6 +34,12 @@ public class PacienteController {
         return pacienteService.registrarPaciente(paciente);
     }
 
+    //Delete Methods
+    @DeleteMapping(path = "{paciente_id}")
+    public void deletePaciente(@PathVariable("paciente_id") long paciente_id){
+        pacienteService.eliminarPaciente(paciente_id);
+    }
+
     //Put Methods
     @PutMapping(path = "{paciente_id}")
     public void modificarPaciente(@PathVariable("paciente_id") Long paciente_id,@RequestBody Paciente paciente){

@@ -1,9 +1,7 @@
 package org.example.hospital_backend.RegistroEmergencia;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,18 @@ public class RegistroDeEmergenciaController {
         return registroDeEmergenciaService.getEmergencias();
     }
 
+    @GetMapping(path = "{registroDeEmergenciaId}")
+    public RegistroDeEmergencia getRegistroDeEmergencia(@RequestParam Long registroDeEmergenciaId) {
+        return registroDeEmergenciaService.getRegistroDeEmergenciaById(registroDeEmergenciaId);
+    }
 
+    @PostMapping
+    public RegistroDeEmergencia crearRegistroDeEmergencia(RegistroDeEmergencia emergencia) {
+        return registroDeEmergenciaService.crearRegistroEmergencia(emergencia);
+    }
+
+    @DeleteMapping(path = "{registroDeEmergenciaId}")
+    public void borrarRegistroDeEmergencia(@PathVariable("registroDeEmergenciaId") Long registroDeEmergenciaId) {
+        registroDeEmergenciaService.borrarRegistroDeEmergencia(registroDeEmergenciaId);
+    }
 }

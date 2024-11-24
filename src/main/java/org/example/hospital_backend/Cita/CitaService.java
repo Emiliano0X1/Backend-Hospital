@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CitaService {
@@ -27,6 +28,7 @@ public class CitaService {
     //Post Methods
 
     public Cita agendarCita(Cita cita) {
+
         return citaRepository.save(cita);
     }
 

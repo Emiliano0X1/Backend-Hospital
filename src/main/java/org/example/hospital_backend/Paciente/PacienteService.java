@@ -28,6 +28,19 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
+    //Delete Methods
+
+    public void eliminarPaciente(long paciente_id) {
+
+        boolean exists = pacienteRepository.existsById(paciente_id);
+
+        if(!exists) {
+            throw new IllegalArgumentException("Paciente no existe.");
+        }
+
+        pacienteRepository.deleteById(paciente_id);
+    }
+
     //Put Methods
     public void modificarPaciente(long pacienteId,Paciente newPaciente) {
 
