@@ -2,6 +2,7 @@ package org.example.hospital_backend.Cita;
 
 import jakarta.persistence.*;
 import org.example.hospital_backend.Paciente.Paciente;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,23 +15,23 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cita_sequence")
     private long id;
     private String nombre;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
     private int edad;
-    private String consultorio;
     private String telefono;
     private String nombreMedico;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
     public Cita(){}
 
-    public Cita(String nombre, Date fecha, int edad, String consultorio, String telefono, String nombreMedico) {
+    public Cita(String nombre, Date fecha, int edad, String telefono, String nombreMedico) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.edad = edad;
-        this.consultorio = consultorio;
         this.telefono = telefono;
         this.nombreMedico = nombreMedico;
     }
@@ -65,14 +66,6 @@ public class Cita {
 
     public void setEdad(int edad) {
         this.edad = edad;
-    }
-
-    public String getConsultorio() {
-        return consultorio;
-    }
-
-    public void setConsultorio(String consultorio) {
-        this.consultorio = consultorio;
     }
 
     public String getNombreMedico() {

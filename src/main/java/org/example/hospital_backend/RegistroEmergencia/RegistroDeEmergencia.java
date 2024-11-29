@@ -20,6 +20,11 @@ public class RegistroDeEmergencia {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @ManyToOne
+    @JoinColumn(name = "pacienteEmergencia_id")
+    private Paciente pacienteEmergencia;
+
+
     public RegistroDeEmergencia() {}
 
     public RegistroDeEmergencia(int edad, String nombre, String razonDeIngreso, String consultorio) {

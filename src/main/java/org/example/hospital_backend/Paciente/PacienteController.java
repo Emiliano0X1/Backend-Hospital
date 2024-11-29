@@ -1,5 +1,6 @@
 package org.example.hospital_backend.Paciente;
 
+import org.example.hospital_backend.Cita.Cita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +30,9 @@ public class PacienteController {
 
     //Post Methods
 
-    @PostMapping
-    public Paciente registrarPaciente(@RequestBody Paciente paciente){
-        return pacienteService.registrarPaciente(paciente);
+    @PostMapping(path = "{cita_id}")
+    public Paciente registrarPaciente(@RequestBody Paciente paciente,@PathVariable("cita_id") long cita_id){
+        return pacienteService.registrarPaciente(paciente,cita_id);
     }
 
     //Delete Methods

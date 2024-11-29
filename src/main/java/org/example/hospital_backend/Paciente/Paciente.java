@@ -1,9 +1,14 @@
 package org.example.hospital_backend.Paciente;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.example.hospital_backend.Cita.Cita;
+import org.example.hospital_backend.Consultorio.Consultorio;
+import org.example.hospital_backend.Expediente.Expediente;
+import org.example.hospital_backend.Receta.Receta;
 import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,27 +16,37 @@ import java.util.List;
 public class Paciente {
 
     @Id
-    @SequenceGenerator(name = "paciente_sequence",sequenceName = "paciente_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "paciente_sequence", sequenceName = "paciente_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paciente_sequence")
     private long id;
     private String name;
     private String razonDeVisita;
     private String telefono;
-    private String expediente;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cita> citas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pacienteEmergencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroDeEmergencia> registroDeEmergencias = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "paciente_id")
+    private Expediente expediente;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cita> citas;
+    private List<Receta> recetas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RegistroDeEmergencia> registroDeEmergencias;
+    @ManyToMany(mappedBy = "paciente")
+    private List<Consultorio> consultorios = new ArrayList<>();
 
     public Paciente() {}
 
-    public Paciente(String name,String razonDeVisita, String telefono, String expediente) {
+    public Paciente(String name,String razonDeVisita, String telefono,List<Cita> citas) {
         this.razonDeVisita = razonDeVisita;
         this.telefono = telefono;
-        this.expediente = expediente;
         this.name = name;
+        this.citas = citas != null ? citas : new ArrayList<>();;
     }
 
     public String getName() {
@@ -58,14 +73,6 @@ public class Paciente {
         this.telefono = telefono;
     }
 
-    public String getExpediente() {
-        return expediente;
-    }
-
-    public void setExpediente(String expediente) {
-        this.expediente = expediente;
-    }
-
     public long getId() {
         return id;
     }
@@ -89,5 +96,39 @@ public class Paciente {
 
     public void setRegistroDeEmergencias(List<RegistroDeEmergencia> registroDeEmergencias) {
         this.registroDeEmergencias = registroDeEmergencias;
+    }
+
+    public Expediente getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(Expediente expediente) {
+        this.expediente = expediente;
+    }
+
+    public List<Receta> getRecetas() {
+        return recetas;
+    }
+
+    public void setRecetas(List<Receta> recetas) {
+        this.recetas = recetas;
+    }
+
+    public List<Consultorio> getConsultorios() {
+        return consultorios;
+    }
+
+    public void setConsultorios(List<Consultorio> consultorios) {
+        this.consultorios = consultorios;
+    }
+
+    public void addCita(Cita cita){
+
+        if(cita == null){
+            this.citas = new ArrayList<>();
+        }
+
+        this.citas.add(cita);
+        cita.setPaciente(this);
     }
 }

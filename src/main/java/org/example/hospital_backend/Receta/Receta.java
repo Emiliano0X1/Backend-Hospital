@@ -1,8 +1,7 @@
 package org.example.hospital_backend.Receta;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.example.hospital_backend.Paciente.Paciente;
 
 import java.util.List;
 
@@ -11,9 +10,15 @@ import java.util.List;
 public class Receta {
 
     @Id
+    @SequenceGenerator(name = "receta_sequence",sequenceName = "receta_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receta_sequence")
     private long id;
     private List<String> medicamentos;
     private List<String> especificaciones;
+
+    @ManyToOne
+    @JoinColumn(name = "pacienteId")
+    private Paciente paciente;
 
 
     public Receta() {}

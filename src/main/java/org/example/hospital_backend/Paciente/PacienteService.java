@@ -1,17 +1,23 @@
 package org.example.hospital_backend.Paciente;
 
+import org.example.hospital_backend.Cita.Cita;
+import org.example.hospital_backend.Cita.CitaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final CitaRepository CitaRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, CitaRepository citaRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.CitaRepository = citaRepository;
     }
 
     public List<Paciente> getListaDePacientes() {
@@ -24,8 +30,20 @@ public class PacienteService {
 
     //Post Methods
 
-    public Paciente registrarPaciente(Paciente paciente) {
+    public Paciente registrarPaciente(Paciente paciente,long cita_id) {
+
+        Optional<Cita> cita = CitaRepository.findById(cita_id);
+
+        if(!cita.isPresent()) {
+            throw new IllegalArgumentException("Cita no encontrada");
+        }
+
+        Cita cita1 = cita.get();
+
+        paciente.addCita(cita1);
+
         return pacienteRepository.save(paciente);
+
     }
 
     //Delete Methods
@@ -56,10 +74,6 @@ public class PacienteService {
 
         if(!newPaciente.getTelefono().isEmpty() && !Objects.equals(newPaciente.getTelefono(), paciente.getTelefono())) {
             paciente.setTelefono(newPaciente.getTelefono());
-        }
-
-        if(!newPaciente.getExpediente().isEmpty() && !Objects.equals(newPaciente.getExpediente(), paciente.getExpediente())) {
-            paciente.setExpediente(newPaciente.getExpediente());
         }
 
         pacienteRepository.save(paciente);

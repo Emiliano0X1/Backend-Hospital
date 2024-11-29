@@ -1,6 +1,9 @@
 package org.example.hospital_backend.Consultorio;
 
 import jakarta.persistence.*;
+import org.example.hospital_backend.Paciente.Paciente;
+
+import java.util.List;
 
 @Entity
 @Table
@@ -12,6 +15,14 @@ public class Consultorio {
     private long id;
     private String nombre;
     private boolean disponible;
+
+    @ManyToMany
+    @JoinTable(
+            name = "consultorio_paciente",
+            joinColumns = @JoinColumn(name = "consultorio_id"),
+            inverseJoinColumns = @JoinColumn(name = "paciente_id")
+    )
+    private List<Paciente> paciente;
 
     public Consultorio() {}
 

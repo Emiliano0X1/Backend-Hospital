@@ -8,4 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Long> {
+
+    Optional<Cita> findById(Long id);
 }
