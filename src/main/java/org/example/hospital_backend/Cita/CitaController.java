@@ -45,4 +45,9 @@ public class CitaController {
         citaService.modificarFecha(cita_id,fecha);
     }
 
+    @PatchMapping(path = "consultorio/{cita_id}")
+    public void relacionarConsultorio(@PathVariable("cita_id") Long cita_id, @RequestParam Long consultorio_id) {
+        citaService.relacionarConsultorio(cita_id,consultorio_id);
+    }
+
 }

@@ -72,13 +72,38 @@ public class CitaService {
     }
 
 
-    //Put Mehthods
+    //Patch Mehthods
 
     public void modificarFecha(long cita_id, Date fecha) {
 
         Cita cita = citaRepository.findById(cita_id).orElseThrow(() -> new IllegalArgumentException("No existe esa cita"));
 
         cita.setFecha(fecha);
+
+        citaRepository.save(cita);
+    }
+
+    public void relacionarConsultorio(Long cita_id, Long consultorio_id) {
+
+        boolean exists = citaRepository.existsById(cita_id);
+
+        if(!exists){
+            throw new IllegalArgumentException("No existe esa cita");
+        }
+
+        Optional<Consultorio> consultorio = consultorioRepository.findById(consultorio_id);
+
+        if (!consultorio.isPresent()) {
+            throw new IllegalArgumentException("No existe ese consultorio");
+        }
+
+        Consultorio consul = consultorio.get();
+
+        consul.setDisponible(false);
+
+        Cita cita = citaRepository.findById(cita_id).get();
+
+        cita.setConsultorio(consul);
 
         citaRepository.save(cita);
     }

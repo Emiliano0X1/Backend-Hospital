@@ -27,6 +27,7 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cita> citas = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroDeEmergencia> registroDeEmergencias = new ArrayList<>();
 

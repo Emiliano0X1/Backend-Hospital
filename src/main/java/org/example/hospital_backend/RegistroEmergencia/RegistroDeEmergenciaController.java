@@ -35,4 +35,9 @@ public class RegistroDeEmergenciaController {
     public void borrarRegistroDeEmergencia(@PathVariable("registroDeEmergenciaId") Long registroDeEmergenciaId) {
         registroDeEmergenciaService.borrarRegistroDeEmergencia(registroDeEmergenciaId);
     }
+
+    @PatchMapping(path = "consultorioE/{emergencia_id}")
+    public void relacionarConsultorio(@PathVariable("emergencia_id") Long emergencia_Id,@RequestParam Long consultorio_id) {
+        registroDeEmergenciaService.relacionarConsultorioEmergencia(emergencia_Id, consultorio_id);
+    }
 }

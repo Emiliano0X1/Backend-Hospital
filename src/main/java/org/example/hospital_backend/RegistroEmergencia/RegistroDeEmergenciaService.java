@@ -1,5 +1,6 @@
 package org.example.hospital_backend.RegistroEmergencia;
 
+import org.example.hospital_backend.Cita.Cita;
 import org.example.hospital_backend.Consultorio.Consultorio;
 import org.example.hospital_backend.Consultorio.ConsultorioRepository;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,34 @@ public class RegistroDeEmergenciaService {
         }
 
         registroDeEmergenciaRepository.deleteById(registroDeEmergenciaId);
+    }
+
+
+    //Patch Methods
+
+    public void relacionarConsultorioEmergencia(Long registroEmergencia_id, Long consultorio_id) {
+
+        boolean exists = registroDeEmergenciaRepository.existsById(registroEmergencia_id);
+
+        if(!exists){
+            throw new IllegalArgumentException("No existe ese registro");
+        }
+
+        Optional<Consultorio> consultorio = consultorioRepository.findById(consultorio_id);
+
+        if (!consultorio.isPresent()) {
+            throw new IllegalArgumentException("No existe ese consultorio");
+        }
+
+        Consultorio consul = consultorio.get();
+
+        consul.setDisponible(false);
+
+        RegistroDeEmergencia registroDeEmergencia = registroDeEmergenciaRepository.findById(registroEmergencia_id).get();
+
+        registroDeEmergencia.setConsultorio(consul);
+
+        registroDeEmergenciaRepository.save(registroDeEmergencia);
     }
 
 

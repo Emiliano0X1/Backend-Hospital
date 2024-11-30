@@ -51,6 +51,9 @@ public class PacienteController {
 
     //Patch Methods
 
-
+    @PatchMapping(path = "{paciente_id}")
+    public void anadirRegistroEmergencia(@PathVariable("paciente_id") Long paciente_id,@RequestParam Long registro_id){
+        pacienteService.anadirRegistroDeEmergencia(paciente_id,registro_id);
+    }
 
 }
