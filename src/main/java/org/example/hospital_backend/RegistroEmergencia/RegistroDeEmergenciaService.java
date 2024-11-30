@@ -1,9 +1,11 @@
 package org.example.hospital_backend.RegistroEmergencia;
 
+import org.example.hospital_backend.Consultorio.Consultorio;
 import org.example.hospital_backend.Consultorio.ConsultorioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegistroDeEmergenciaService {
@@ -29,7 +31,30 @@ public class RegistroDeEmergenciaService {
 
     //Post Methods
 
-    public RegistroDeEmergencia crearRegistroEmergencia(RegistroDeEmergencia registroDeEmergencia){
+    public RegistroDeEmergencia crearRegistroEmergencia(RegistroDeEmergencia registroDeEmergencia, Long consultorio_id){
+
+
+        if(consultorio_id != null){
+
+            Optional<Consultorio> consultorio = consultorioRepository.findById(consultorio_id);
+
+            if(consultorio.isPresent()){
+
+                Consultorio consultorioAux = consultorio.get();
+
+                if(!consultorioAux.isDisponible()){
+                    throw new IllegalArgumentException("El consultorio no esta disponible");
+                }
+
+                consultorioAux.setDisponible(false);
+                registroDeEmergencia.setConsultorio(consultorioAux);
+            }
+
+            else{
+                throw new IllegalArgumentException("No existe el consultorio");
+            }
+        }
+
         return registroDeEmergenciaRepository.save(registroDeEmergencia);
     }
 

@@ -37,7 +37,12 @@ public class CitaService {
             Optional<Consultorio> consultorio = consultorioRepository.findById(consultorio_id);
 
             if (consultorio.isPresent()) {
+
                 Consultorio consul = consultorio.get();
+
+                if(!consul.isDisponible()){
+                    throw new IllegalArgumentException("El consultorio no esta disponible");
+                }
 
                 consul.setDisponible(false);
 

@@ -27,8 +27,8 @@ public class RegistroDeEmergenciaController {
     }
 
     @PostMapping
-    public RegistroDeEmergencia crearRegistroDeEmergencia(@RequestBody RegistroDeEmergencia emergencia) {
-        return registroDeEmergenciaService.crearRegistroEmergencia(emergencia);
+    public RegistroDeEmergencia crearRegistroDeEmergencia(@RequestBody RegistroDeEmergencia emergencia,@RequestParam(required = false) Long consultorio_id) {
+        return registroDeEmergenciaService.crearRegistroEmergencia(emergencia, consultorio_id);
     }
 
     @DeleteMapping(path = "{registroDeEmergenciaId}")

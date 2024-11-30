@@ -11,22 +11,30 @@ public class Usuario {
     @SequenceGenerator(name = "usuario_sequence",sequenceName = "usuario_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_sequence")
     private long id;
-    protected String email;
+    protected String nombre;
     protected String password;
 
     public Usuario() {}
 
-    public Usuario(String email, String password) {
-        this.email = email;
+    public Usuario(String nombre, String password) {
+        this.nombre = nombre;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public long getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getPassword() {
