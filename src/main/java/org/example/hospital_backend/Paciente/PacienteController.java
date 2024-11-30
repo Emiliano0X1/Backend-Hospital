@@ -1,6 +1,7 @@
 package org.example.hospital_backend.Paciente;
 
 import org.example.hospital_backend.Cita.Cita;
+import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class PacienteController {
         return pacienteService.registrarPaciente(paciente,cita_id);
     }
 
+
     //Delete Methods
     @DeleteMapping(path = "{paciente_id}")
     public void deletePaciente(@PathVariable("paciente_id") long paciente_id){
@@ -46,6 +48,8 @@ public class PacienteController {
     public void modificarPaciente(@PathVariable("paciente_id") Long paciente_id,@RequestBody Paciente paciente){
         pacienteService.modificarPaciente(paciente_id,paciente);
     }
+
+    //Patch Methods
 
 
 

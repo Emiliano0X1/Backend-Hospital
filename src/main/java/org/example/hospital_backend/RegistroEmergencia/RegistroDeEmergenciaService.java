@@ -1,5 +1,6 @@
 package org.example.hospital_backend.RegistroEmergencia;
 
+import org.example.hospital_backend.Consultorio.ConsultorioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,9 +9,11 @@ import java.util.List;
 public class RegistroDeEmergenciaService {
 
     private final RegistroDeEmergenciaRepository registroDeEmergenciaRepository;
+    private final ConsultorioRepository consultorioRepository;
 
-    public RegistroDeEmergenciaService(RegistroDeEmergenciaRepository registroDeEmergenciaRepository) {
+    public RegistroDeEmergenciaService(RegistroDeEmergenciaRepository registroDeEmergenciaRepository, ConsultorioRepository consultorioRepository) {
         this.registroDeEmergenciaRepository = registroDeEmergenciaRepository;
+        this.consultorioRepository = consultorioRepository;
     }
 
     //Get Methods

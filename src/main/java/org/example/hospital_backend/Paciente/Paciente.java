@@ -27,7 +27,7 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cita> citas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "pacienteEmergencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroDeEmergencia> registroDeEmergencias = new ArrayList<>();
 
     @OneToOne
@@ -37,16 +37,16 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Receta> recetas = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "paciente")
-    private List<Consultorio> consultorios = new ArrayList<>();
-
     public Paciente() {}
 
-    public Paciente(String name,String razonDeVisita, String telefono,List<Cita> citas) {
+    public Paciente(String name,String razonDeVisita, String telefono,List<Cita> citas,List<RegistroDeEmergencia> registroDeEmergencias,Expediente expediente,List<Receta> recetas) {
         this.razonDeVisita = razonDeVisita;
         this.telefono = telefono;
         this.name = name;
-        this.citas = citas != null ? citas : new ArrayList<>();;
+        this.citas = citas != null ? citas : new ArrayList<>();
+        this.registroDeEmergencias = registroDeEmergencias != null ? registroDeEmergencias : new ArrayList<>();
+        this.expediente = expediente;
+        this.recetas = recetas != null ? recetas : new ArrayList<>();
     }
 
     public String getName() {
@@ -114,14 +114,6 @@ public class Paciente {
         this.recetas = recetas;
     }
 
-    public List<Consultorio> getConsultorios() {
-        return consultorios;
-    }
-
-    public void setConsultorios(List<Consultorio> consultorios) {
-        this.consultorios = consultorios;
-    }
-
     public void addCita(Cita cita){
 
         if(cita == null){
@@ -130,5 +122,23 @@ public class Paciente {
 
         this.citas.add(cita);
         cita.setPaciente(this);
+    }
+
+    public void addRegistroEmergencia(RegistroDeEmergencia registroEmergencia){
+        if(registroEmergencia == null){
+            this.registroDeEmergencias = new ArrayList<>();
+        }
+
+        this.registroDeEmergencias.add(registroEmergencia);
+        registroEmergencia.setPaciente(this);
+    }
+
+    public void addReceta(Receta receta){
+        if(receta == null){
+            this.recetas = new ArrayList<>();
+        }
+
+        this.recetas.add(receta);
+        receta.setPaciente(this);
     }
 }

@@ -26,9 +26,9 @@ public class ExpedienteController {
         return expedienteService.getExpedienteById(expedienteId);
     }
 
-    @PostMapping
-    public Expediente crearExpediente(Expediente expediente) {
-        return expedienteService.crearExpediente(expediente);
+    @PostMapping(path = "{pacienteId}")
+    public Expediente crearExpediente(@RequestBody Expediente expediente,@PathVariable("pacienteId") long pacienteId) {
+        return expedienteService.crearExpediente(expediente,pacienteId);
     }
 
     @DeleteMapping(path = "{expediente_id}")

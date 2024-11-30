@@ -1,10 +1,12 @@
 package org.example.hospital_backend.Cita;
 
 import jakarta.persistence.*;
+import org.example.hospital_backend.Consultorio.Consultorio;
 import org.example.hospital_backend.Paciente.Paciente;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -26,14 +28,19 @@ public class Cita {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @OneToOne
+    @JoinColumn(name = "cita_id")
+    private Consultorio consultorio;
+
     public Cita(){}
 
-    public Cita(String nombre, Date fecha, int edad, String telefono, String nombreMedico) {
+    public Cita(String nombre, Date fecha, int edad, String telefono, String nombreMedico,Consultorio consultorio) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.edad = edad;
         this.telefono = telefono;
         this.nombreMedico = nombreMedico;
+        this.consultorio = consultorio;
     }
 
     public long getId() {
@@ -90,5 +97,13 @@ public class Cita {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Consultorio getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(Consultorio consultorio) {
+        this.consultorio = consultorio;
     }
 }

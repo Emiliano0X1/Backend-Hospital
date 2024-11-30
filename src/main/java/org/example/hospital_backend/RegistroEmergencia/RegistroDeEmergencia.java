@@ -1,6 +1,7 @@
 package org.example.hospital_backend.RegistroEmergencia;
 
 import jakarta.persistence.*;
+import org.example.hospital_backend.Consultorio.Consultorio;
 import org.example.hospital_backend.Paciente.Paciente;
 
 @Entity
@@ -14,24 +15,30 @@ public class RegistroDeEmergencia {
     private int edad;
     private String nombre;
     private String razonDeIngreso;
-    private String consultorio;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "pacienteEmergencia_id")
-    private Paciente pacienteEmergencia;
-
+    @OneToOne
+    @JoinColumn(name = "emergencia_id")
+    private Consultorio consultorio;
 
     public RegistroDeEmergencia() {}
 
-    public RegistroDeEmergencia(int edad, String nombre, String razonDeIngreso, String consultorio) {
+    public RegistroDeEmergencia(int edad, String nombre, String razonDeIngreso,Consultorio consultorio) {
         this.edad = edad;
         this.nombre = nombre;
         this.razonDeIngreso = razonDeIngreso;
         this.consultorio = consultorio;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getEdad() {
@@ -40,14 +47,6 @@ public class RegistroDeEmergencia {
 
     public void setEdad(int edad) {
         this.edad = edad;
-    }
-
-    public String getConsultorio() {
-        return consultorio;
-    }
-
-    public void setConsultorio(String consultorio) {
-        this.consultorio = consultorio;
     }
 
     public String getRazonDeIngreso() {
@@ -64,5 +63,21 @@ public class RegistroDeEmergencia {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Consultorio getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(Consultorio consultorio) {
+        this.consultorio = consultorio;
     }
 }

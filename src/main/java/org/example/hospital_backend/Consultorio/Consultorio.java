@@ -1,7 +1,9 @@
 package org.example.hospital_backend.Consultorio;
 
 import jakarta.persistence.*;
+import org.example.hospital_backend.Cita.Cita;
 import org.example.hospital_backend.Paciente.Paciente;
+import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
 
 import java.util.List;
 
@@ -10,19 +12,19 @@ import java.util.List;
 public class Consultorio {
 
     @Id
-    @SequenceGenerator(name = "consultorio_sequence",sequenceName = "consultorio_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "consultorio_sequence", sequenceName = "consultorio_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consultorio_sequence")
     private long id;
     private String nombre;
     private boolean disponible;
 
-    @ManyToMany
-    @JoinTable(
-            name = "consultorio_paciente",
-            joinColumns = @JoinColumn(name = "consultorio_id"),
-            inverseJoinColumns = @JoinColumn(name = "paciente_id")
-    )
-    private List<Paciente> paciente;
+    @OneToOne
+    @JoinColumn(name = "consultorio_id")
+    private Cita cita;
+
+    @OneToOne
+    @JoinColumn(name = "consultorio2_id")
+    private RegistroDeEmergencia registroDeEmergencia;
 
     public Consultorio() {}
 
@@ -53,5 +55,22 @@ public class Consultorio {
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+
+    public Cita getCita() {
+        return cita;
+    }
+
+    public void setCita(Cita cita) {
+        this.cita = cita;
+    }
+
+    public RegistroDeEmergencia getRegistroDeEmergencia() {
+        return registroDeEmergencia;
+    }
+
+    public void setRegistroDeEmergencia(RegistroDeEmergencia registroDeEmergencia) {
+        this.registroDeEmergencia = registroDeEmergencia;
     }
 }

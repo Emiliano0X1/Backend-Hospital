@@ -26,9 +26,9 @@ public class RecetaController {
         return recetaService.getRecetaById(receta_id);
     }
 
-    @PostMapping
-    public Receta crearReceta(Receta receta) {
-        return recetaService.addReceta(receta);
+    @PostMapping(path = "{paciente_id}")
+    public Receta crearReceta(@RequestBody Receta receta,@PathVariable("paciente_id") long paciente_id) {
+        return recetaService.addReceta(receta, paciente_id);
     }
 
     @DeleteMapping(path = "{receta_id}")

@@ -1,5 +1,6 @@
 package org.example.hospital_backend.Cita;
 
+import org.example.hospital_backend.Consultorio.Consultorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,8 +31,8 @@ public class CitaController {
     }
 
     @PostMapping
-    public Cita agendarCita(@RequestBody Cita cita) {
-        return citaService.agendarCita(cita);
+    public Cita agendarCita(@RequestBody Cita cita,@RequestParam(required = false) Long consultorio_id) {
+        return citaService.agendarCita(cita,consultorio_id);
     }
 
     @DeleteMapping(path = "{cita_id}")

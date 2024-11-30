@@ -2,6 +2,8 @@ package org.example.hospital_backend.Paciente;
 
 import org.example.hospital_backend.Cita.Cita;
 import org.example.hospital_backend.Cita.CitaRepository;
+import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
+import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergenciaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,10 +16,12 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final CitaRepository CitaRepository;
+    private final RegistroDeEmergenciaRepository registroDeEmergenciaRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository, CitaRepository citaRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, CitaRepository citaRepository, RegistroDeEmergenciaRepository registroDeEmergenciaRepository) {
         this.pacienteRepository = pacienteRepository;
         this.CitaRepository = citaRepository;
+        this.registroDeEmergenciaRepository = registroDeEmergenciaRepository;
     }
 
     public List<Paciente> getListaDePacientes() {
@@ -45,6 +49,7 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
 
     }
+
 
     //Delete Methods
 
@@ -78,6 +83,28 @@ public class PacienteService {
 
         pacienteRepository.save(paciente);
     }
+
+    // Patch Methods
+
+    public void anadirRegistroDeEmergencia(long paciente_id, long registroEmergencia_id) {
+
+        Optional<RegistroDeEmergencia> registroDeEmergencia = registroDeEmergenciaRepository.findById(registroEmergencia_id);
+
+        if(!registroDeEmergencia.isPresent()) {
+            throw new IllegalArgumentException("Registro emergencia no existe.");
+        }
+
+        RegistroDeEmergencia registroDeEmergencia1 = registroDeEmergencia.get();
+
+        Paciente paciente = pacienteRepository.findById(paciente_id).get();
+
+        paciente.addRegistroEmergencia(registroDeEmergencia1);
+
+        pacienteRepository.save(paciente);
+
+    }
+
+
 
 
 }

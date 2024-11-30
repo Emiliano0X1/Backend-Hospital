@@ -27,7 +27,7 @@ public class RegistroDeEmergenciaController {
     }
 
     @PostMapping
-    public RegistroDeEmergencia crearRegistroDeEmergencia(RegistroDeEmergencia emergencia) {
+    public RegistroDeEmergencia crearRegistroDeEmergencia(@RequestBody RegistroDeEmergencia emergencia) {
         return registroDeEmergenciaService.crearRegistroEmergencia(emergencia);
     }
 
