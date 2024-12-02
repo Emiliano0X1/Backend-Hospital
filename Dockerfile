@@ -4,7 +4,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/RhamedAPI-0.0.1-SNAPSHOT.jar RhamedAPI.jar
+COPY --from=build /target/Hospital_Backend-0.0.1-SNAPSHOT.jar Hospital_Backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","RhamedAPI.jar"]
+ENTRYPOINT ["java","-jar","Hospital_Backend.jar"]
 
