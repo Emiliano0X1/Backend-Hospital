@@ -67,20 +67,20 @@ public class PacienteService {
 
     //Put Methods
     @Transactional
-    public void modificarPaciente(long pacienteId,Paciente newPaciente) {
+    public void modificarPaciente(long pacienteId,String name,String telefono,String razonDeVisita) {
 
         Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(() -> new IllegalArgumentException("No existe ese paciente"));
 
-        if(!newPaciente.getName().isEmpty() && !Objects.equals(newPaciente.getName(), paciente.getName())) {
-            paciente.setName(newPaciente.getName());
+        if(!name.isEmpty() && !Objects.equals(name, paciente.getName())) {
+            paciente.setName(name);
         }
 
-        if(!newPaciente.getRazonDeVisita().isEmpty() && !Objects.equals(newPaciente.getRazonDeVisita(), paciente.getRazonDeVisita())) {
-            paciente.setRazonDeVisita(newPaciente.getRazonDeVisita());
+        if(!razonDeVisita.isEmpty() && !Objects.equals(razonDeVisita, paciente.getRazonDeVisita())) {
+            paciente.setRazonDeVisita(razonDeVisita);
         }
 
-        if(!newPaciente.getTelefono().isEmpty() && !Objects.equals(newPaciente.getTelefono(), paciente.getTelefono())) {
-            paciente.setTelefono(newPaciente.getTelefono());
+        if(!telefono.isEmpty() && !Objects.equals(telefono, paciente.getTelefono())) {
+            paciente.setTelefono(telefono);
         }
 
         pacienteRepository.save(paciente);
