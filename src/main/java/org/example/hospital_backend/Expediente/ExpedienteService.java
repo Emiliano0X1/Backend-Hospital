@@ -58,14 +58,12 @@ public class ExpedienteService {
         expedienteRepository.deleteById(expedienteId);
     }
 
-    @Transactional
-    public void actualizarExpediente(Long expedienteId,Expediente newExpediente) {
 
-        Expediente expediente = expedienteRepository.findById(expedienteId).orElseThrow(() -> new IllegalArgumentException("Expediente no existe."));
+    public void actualizarExpediente(Long expedienteId,String historial) {
 
-        if(!newExpediente.getHistorial().isEmpty() && Objects.equals(newExpediente.getHistorial(), expediente.getHistorial())) {
-            expediente.setHistorial(newExpediente.getHistorial());
-        }
+        Expediente expediente = expedienteRepository.findById(expedienteId).orElseThrow(() -> new IllegalArgumentException("El expediente no existe"));
+
+        expediente.setHistorial(historial);
 
         expedienteRepository.save(expediente);
     }

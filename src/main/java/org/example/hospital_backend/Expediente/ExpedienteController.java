@@ -36,8 +36,8 @@ public class ExpedienteController {
         expedienteService.eliminarExpediente(expedienteId);
     }
 
-    @PutMapping(path = "{expediente_id}")
-    public void actualizarExpediente(@PathVariable("expediente_id") long expedienteId,@RequestBody Expediente expediente) {
-        expedienteService.actualizarExpediente(expedienteId,expediente);
+    @PatchMapping(path = "{expediente_id}")
+    public void actualizarExpediente(@PathVariable("expediente_id") long expedienteId,@RequestParam String historial) {
+        expedienteService.actualizarExpediente(expedienteId,historial);
     }
 }
