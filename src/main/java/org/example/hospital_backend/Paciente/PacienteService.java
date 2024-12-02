@@ -1,5 +1,6 @@
 package org.example.hospital_backend.Paciente;
 
+import jakarta.transaction.Transactional;
 import org.example.hospital_backend.Cita.Cita;
 import org.example.hospital_backend.Cita.CitaRepository;
 import org.example.hospital_backend.RegistroEmergencia.RegistroDeEmergencia;
@@ -65,6 +66,7 @@ public class PacienteService {
     }
 
     //Put Methods
+    @Transactional
     public void modificarPaciente(long pacienteId,Paciente newPaciente) {
 
         Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(() -> new IllegalArgumentException("No existe ese paciente"));

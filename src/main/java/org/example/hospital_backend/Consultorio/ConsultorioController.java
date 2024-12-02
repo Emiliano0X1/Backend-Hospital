@@ -22,7 +22,7 @@ public class ConsultorioController {
     }
 
     @GetMapping(path = "{consultorio_id}")
-    public Consultorio getConsultorio(long id) {
+    public Consultorio getConsultorio(@PathVariable("consultorio_id") long id) {
         return consultorioService.getConsultorioById(id);
     }
 
